@@ -3,7 +3,7 @@ import styles from './Input.module.css';
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   isError?: boolean;
-  helperText?: string;
+  helperText?: string | null;
 }
 
 export const Input: FC<InputProps> = ({
