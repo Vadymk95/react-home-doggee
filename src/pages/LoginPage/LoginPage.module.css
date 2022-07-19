@@ -15,6 +15,7 @@
 }
 
 .header_container {
+  font-family: "Baloo 2", cursive;
   display: flex;
   justify-content: center;
   align-items: flex-end;
