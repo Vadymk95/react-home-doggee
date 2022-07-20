@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { LoginPage } from './pages/LoginPage/LoginPage';
-
-import './App.css';
+import { AppRouter } from '@router';
 
 const App: FC = () => {
-  return <LoginPage />;
+  return <AppRouter />;
 };
 
 export default App;

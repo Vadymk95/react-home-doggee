@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Button, Input } from '../../components';
+import { Button, Input } from '@components';
 import styles from './LoginPage.module.css';
+import { useNavigate } from 'react-router-dom';
+import { RoutesEnum } from '@router';
 
 interface IFormErrors {
   username: string | null;
@@ -8,6 +10,7 @@ interface IFormErrors {
 }
 
 export const LoginPage: FC = () => {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({ username: '', password: '' });
   const [formErrors, setFormErrors] = useState<IFormErrors>({
     username: null,
@@ -31,6 +34,8 @@ export const LoginPage: FC = () => {
     const error = validateField(value);
     setFormErrors({ ...formErrors, [key]: error });
   };
+
+  const createAccount = () => navigate(RoutesEnum.REGISTRATION);
 
   return (
     <div className={styles.login_page}>
@@ -69,7 +74,7 @@ export const LoginPage: FC = () => {
             <Button>Sign In</Button>
           </div>
         </div>
-        <div className={styles.sign_up_container}>Create new account</div>
+        <div onClick={createAccount} className={styles.sign_up_container}>Create new account</div>
       </div>
     </div>
   );

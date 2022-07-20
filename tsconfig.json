@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -14,7 +15,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react-jsx"
   },
-  "include": ["src/components", "*/**.d.ts", "./src/"]
+  "include": ["src/components", "*/**.d.ts", "./src/"],
+  "extends": "./tsconfig.extend.json"
 }
