@@ -21,9 +21,10 @@
   text-transform: capitalize;
 }
 
-.focused .label {
+.input:focus ~ .label,
+.input:not([value='']) ~ .label {
   transform: translate(-10%, -80%);
-  transition: all .3s;
+  transition: all 0.3s;
   font-size: 10px;
 }
 

@@ -8,37 +8,20 @@ export const Input: FC<IInput> = ({
   isError = false,
   label,
   helperText,
-  type,
-  value,
   ...props
 }) => {
-  const [isFocus, setFocus] = useState(!!value ?? false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const hasError = isFocus && isError ? styles.error : '';
-  const onBlurHandler = () => !value && setFocus(false);
-  const inputRefHandler = () => {
-    inputRef.current?.focus();
-    setFocus(true);
-  };
+  const hasError = isError ? styles.error : '';
+  const inputRefHandler = () => inputRef.current?.focus();
 
   return (
     <div
-      className={`${styles.container} ${
-        isFocus ? styles.focused : ''
-      } ${hasError}`}
+      className={`${styles.container} ${hasError}`}
       onClick={inputRefHandler}
     >
-      <label className={styles.label}>
-        {label}
-      </label>
-      <input
-        ref={inputRef}
-        onBlur={onBlurHandler}
-        className={styles.input}
-        type={type}
-        {...props}
-      />
-      {isFocus && isError && helperText && (
+      <input ref={inputRef} className={styles.input} {...props} />
+      <label className={styles.label}>{label}</label>
+      {isError && helperText && (
         <p className={styles.helper_text}>{helperText}</p>
       )}
     </div>

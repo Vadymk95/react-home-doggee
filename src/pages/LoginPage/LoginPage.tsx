@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Button, Input, PasswordInput } from '@components';
+import { Button, Checkbox, Input, PasswordInput } from '@components';
 import styles from './LoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '@router';
@@ -12,7 +12,11 @@ interface IFormErrors {
 
 export const LoginPage: FC = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState({ username: '', password: '' });
+  const [formValues, setFormValues] = useState({
+    username: '',
+    password: '',
+    remoteAccess: false,
+  });
   const [formErrors, setFormErrors] = useState<IFormErrors>({
     username: null,
     password: null,
@@ -48,7 +52,12 @@ export const LoginPage: FC = () => {
     const password = e.target.value;
     setFormValues({ ...formValues, password });
     validateHandler(password, 'password');
-  }
+  };
+
+  const checkboxHandler: ChangeEventType = (e) => {
+    const remoteAccess = e.target.checked;
+    setFormValues({ ...formValues, remoteAccess });
+  };
 
   return (
     <div className={styles.login_page}>
@@ -73,11 +82,19 @@ export const LoginPage: FC = () => {
               onChange={changePasswordHandler}
             />
           </div>
+          <div className={styles.input}>
+            <Checkbox
+              label="This is not my device"
+              onChange={checkboxHandler}
+            />
+          </div>
           <div>
             <Button>Sign In</Button>
           </div>
         </div>
-        <div onClick={createAccount} className={styles.sign_up_container}>Create new account</div>
+        <div onClick={createAccount} className={styles.sign_up_container}>
+          Create new account
+        </div>
       </div>
     </div>
   );
