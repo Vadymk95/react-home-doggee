@@ -2,18 +2,10 @@ import React, { FC, useState } from 'react';
 import styles from './PasswordInput.module.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { InputHTMLAttributes } from 'react';
 import { Input } from '../Input/Input';
-import { ChangeEventType } from '@models';
+import { IInput } from '@models';
 
-interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
-  isError?: boolean;
-  helperText?: string | null;
-  onChange: ChangeEventType;
-}
-
-export const PasswordInput: FC<InputProps> = ({
+export const PasswordInput: FC<IInput> = ({
   isError = false,
   helperText,
   value,

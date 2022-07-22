@@ -1,15 +1,10 @@
 import React, { FC, useState, useRef } from 'react';
+
+import { IInput } from '@models';
+
 import styles from './../Input.module.css';
-import { InputHTMLAttributes } from 'react';
 
-interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
-  label: string;
-  isError?: boolean;
-  helperText?: string | null;
-}
-
-export const Input: FC<InputProps> = ({
+export const Input: FC<IInput> = ({
   isError = false,
   label,
   helperText,
