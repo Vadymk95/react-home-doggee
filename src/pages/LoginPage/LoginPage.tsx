@@ -3,6 +3,7 @@ import { Button, Input, PasswordInput } from '@components';
 import styles from './LoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '@router';
+import { ChangeEventType } from '@models';
 
 interface IFormErrors {
   username: string | null;
@@ -37,6 +38,18 @@ export const LoginPage: FC = () => {
 
   const createAccount = () => navigate(RoutesEnum.REGISTRATION);
 
+  const changeLoginHandler: ChangeEventType = (e) => {
+    const username = (e.target as HTMLInputElement).value;
+    setFormValues({ ...formValues, username });
+    validateHandler(username, 'username');
+  };
+
+  const changePasswordHandler: ChangeEventType = (e) => {
+    const password = e.target.value;
+    setFormValues({ ...formValues, password });
+    validateHandler(password, 'password');
+  }
+
   return (
     <div className={styles.login_page}>
       <div className={styles.container}>
@@ -49,25 +62,15 @@ export const LoginPage: FC = () => {
               label="username"
               helperText={formErrors.username}
               value={formValues.username}
-              onChange={(e) => {
-                const username = (e.target as HTMLInputElement).value;
-                setFormValues({ ...formValues, username });
-                validateHandler(username, 'username');
-              }}
+              onChange={changeLoginHandler}
             />
           </div>
           <div className={styles.input}>
             <PasswordInput
               isError={!!formErrors.password}
               helperText={formErrors.password}
-              type="password"
-              label="password"
               value={formValues.password}
-              onChange={(e) => {
-                const password = (e.target as HTMLInputElement).value;
-                setFormValues({ ...formValues, password });
-                validateHandler(password, 'password');
-              }}
+              onChange={changePasswordHandler}
             />
           </div>
           <div>

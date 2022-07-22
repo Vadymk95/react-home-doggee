@@ -1,61 +1,47 @@
-import React, { FC, useState, useRef } from 'react';
-import styles from './../Input.module.css';
-import passStyles from './PasswordInput.module.css';
+import React, { FC, useState } from 'react';
+import styles from './PasswordInput.module.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { InputHTMLAttributes } from 'react';
+import { Input } from '../Input/Input';
+import { ChangeEventType } from '@models';
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
-  label: string;
   isError?: boolean;
   helperText?: string | null;
+  onChange: ChangeEventType;
 }
 
 export const PasswordInput: FC<InputProps> = ({
   isError = false,
-  label,
   helperText,
-  type,
   value,
-  ...props
+  onChange,
 }) => {
+  const [type, setType] = useState('password');
   const [isShow, setShow] = useState(false);
-  const [isFocus, setFocus] = useState(!!value ?? false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const hasError = isFocus && isError ? styles.error : '';
-  const isPasswordType = type === 'password';
-  const isTextType = isPasswordType && isShow;
-  const showPasswordHandler = () => setShow(!isShow);
-  const onBlurHandler = () => !value && setFocus(false);
-  const inputRefHandler = () => {
-    inputRef.current?.focus();
-    setFocus(true);
+
+  const showPasswordHandler = () => {
+    setShow(!isShow);
+    if (isShow) return setType('password');
+    setType('text');
   };
+
   const iconStyles = { color: '#d5d5d5', '&:hover': { color: '#a9a9a9' } };
 
   return (
-    <div
-      className={`${styles.container} ${
-        isFocus ? styles.focused : ''
-      } ${hasError}`}
-      onClick={inputRefHandler}
-    >
-      <label className={styles.label}>
-        {label}
-      </label>
-      <input
-        ref={inputRef}
-        onBlur={onBlurHandler}
-        className={styles.input}
-        type={isTextType ? 'text' : type}
-        {...props}
+    <div className={styles.container}>
+      <Input
+        isError={isError}
+        type={type}
+        label="password"
+        helperText={helperText}
+        value={value}
+        onChange={onChange}
       />
-      {isFocus && isError && helperText && (
-        <p className={styles.helper_text}>{helperText}</p>
-      )}
-      {value && isPasswordType && (
-        <div className={passStyles.password_block} onClick={showPasswordHandler}>
+      {value && (
+        <div className={styles.show_icon_block} onClick={showPasswordHandler}>
           {isShow ? (
             <VisibilityOffIcon sx={iconStyles} />
           ) : (
