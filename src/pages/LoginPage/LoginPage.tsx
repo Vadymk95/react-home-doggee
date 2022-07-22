@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Button, Input } from '@components';
+import { Button, Input, PasswordInput } from '@components';
 import styles from './LoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '@router';
@@ -46,7 +46,7 @@ export const LoginPage: FC = () => {
             <Input
               isError={!!formErrors.username}
               type="text"
-              placeholder="username"
+              label="username"
               helperText={formErrors.username}
               value={formValues.username}
               onChange={(e) => {
@@ -57,11 +57,11 @@ export const LoginPage: FC = () => {
             />
           </div>
           <div className={styles.input}>
-            <Input
+            <PasswordInput
               isError={!!formErrors.password}
               helperText={formErrors.password}
               type="password"
-              placeholder="password"
+              label="password"
               value={formValues.password}
               onChange={(e) => {
                 const password = (e.target as HTMLInputElement).value;
